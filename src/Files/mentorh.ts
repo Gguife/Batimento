@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { parseMoney } from '../utils/parseMoney';
+import { parseMatricula, parseMoneyMentor } from '../utils/parseMoney';
 
 //CAMINHO DO ARQUIVO
 const workFileMentorh = XLSX.readFile("/home/gguife/Downloads/mentorh.csv");
@@ -25,7 +25,7 @@ const normalizedDataMentorh = mentorh.map((item: any) => ({
   fator: Number(item["Fator"]),
   matricula: String(item["Matricula"]).trim(),
   nome: String(item["Nome"]).trim(),
-  valor: parseMoney(item["Valor"])
+  valor: parseMoneyMentor(item["Valor"])
 }));
 
 
@@ -45,11 +45,11 @@ export const mentor = Object.values(
       acc[key] = {
         matricula: item.matricula,
         nome: item.nome,
-        rendimento: 0
+        valor: 0
       }
     }
 
-    acc[key].rendimento += item.valor; 
+    acc[key].valor += item.valor; 
 
     return acc;
   }, {})
